@@ -2,6 +2,8 @@ package sample.ui;
 
 import javafx.geometry.Insets;
 import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.*;
 import sample.ColorSubject;
 
@@ -11,12 +13,12 @@ import sample.ColorSubject;
  */
 public class MainView extends BorderPane {
     private ColorSubject colorSubject = new ColorSubject();
-    private final Menu menu = new Menu();
 
     private final ColorField colorField = new ColorField(colorSubject);
     private final ColorSliders colorSliders = new ColorSliders(colorSubject);
     private final ColorChooser colorChooser = new ColorChooser(colorSubject);
     private final TextFieldGroup textFieldGroup = new TextFieldGroup(colorSubject);
+    private final ColorAdjustmentButtons buttons = new ColorAdjustmentButtons(colorSubject);
     private final GridPane gridPane = new GridPane();
     private final ColumnConstraints cGrow = new ColumnConstraints();
     private final ColumnConstraints cNoGrow = new ColumnConstraints();
@@ -27,7 +29,6 @@ public class MainView extends BorderPane {
     }
 
     private void layoutControls(){
-        setMinHeight(400);
         gridPane.setHgap(10);
         gridPane.setVgap(10);
         setPadding(new Insets(5));
@@ -38,8 +39,8 @@ public class MainView extends BorderPane {
         gridPane.add(colorSliders.getGridPane(),0,0);
         gridPane.add(colorField.getGridPane(),0,1);
         gridPane.add(textFieldGroup.getGridPane(),1,0);
+        colorChooser.getGridPane().add(buttons.getGridPane(),1,0);
         gridPane.add(colorChooser.getGridPane(),1,1);
-
         setCenter(gridPane);
     }
 

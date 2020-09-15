@@ -37,6 +37,9 @@ public class TextFieldGroup extends Observer implements UiComponent {
 
     @Override
     public void initializeControls() {
+        red.setEditable(true);
+        blue.setEditable(true);
+        green.setEditable(true);
         redHEX.setEditable(false);
         blueHEX.setEditable(false);
         greenHEX.setEditable(false);
@@ -53,15 +56,15 @@ public class TextFieldGroup extends Observer implements UiComponent {
     public void setupValueChangeListener() {
         red.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (!oldValue.equals(newValue))
-                colorSubject.setColor(newValue, green.getValue(), blue.getValue());
+                colorSubject.setColor(newValue, colorSubject.intFromFactor(colorSubject.getColor().getGreen()), colorSubject.intFromFactor(colorSubject.getColor().getBlue()));
         });
         green.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (!oldValue.equals(newValue))
-                colorSubject.setColor(red.getValue(), newValue, blue.getValue());
+                colorSubject.setColor(colorSubject.intFromFactor(colorSubject.getColor().getRed()), newValue, colorSubject.intFromFactor(colorSubject.getColor().getBlue()));
         });
         blue.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (!oldValue.equals(newValue))
-                colorSubject.setColor(red.getValue(), green.getValue(), newValue);
+                colorSubject.setColor(colorSubject.intFromFactor(colorSubject.getColor().getRed()), colorSubject.intFromFactor(colorSubject.getColor().getGreen()), newValue);
         });
     }
 

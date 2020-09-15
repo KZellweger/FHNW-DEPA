@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.scene.paint.Color;
+import sample.ui.TextFieldGroup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
 public class ColorSubject {
     private List<Observer> observers = new ArrayList<>();
     private Color color = Color.BLACK;
+
     public Color getColor() {
         return color;
     }
@@ -22,8 +24,7 @@ public class ColorSubject {
     }
 
     public void setColor(int r, int g, int b) {
-        this.color = new Color(rgbToFactor(r), rgbToFactor(g), rgbToFactor(b),1.0);
-        notifyObservers();
+        setColor(new Color(rgbToFactor(r), rgbToFactor(g), rgbToFactor(b),1.0));
     }
 
     public void attach(Observer observer){

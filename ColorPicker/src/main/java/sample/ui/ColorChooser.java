@@ -31,6 +31,7 @@ public class ColorChooser extends Observer implements UiComponent {
         this.colorSubject.attach(this);
         initializeControls();
         setupValueChangeListener();
+        buttonGroup.selectToggle(black);
     }
 
     @Override
@@ -55,17 +56,17 @@ public class ColorChooser extends Observer implements UiComponent {
         gridPane.add(red, 0, 0);
         gridPane.add(green, 0, 1);
         gridPane.add(blue, 0, 2);
-        gridPane.add(yellow, 0, 4);
-        gridPane.add(cyan, 0, 5);
-        gridPane.add(orange, 0, 6);
-        gridPane.add(white, 0, 7);
-        gridPane.add(black, 0, 8);
+        gridPane.add(yellow, 0, 3);
+        gridPane.add(cyan, 0, 4);
+        gridPane.add(orange, 0, 5);
+        gridPane.add(white, 0, 6);
+        gridPane.add(black, 0, 7);
     }
 
     @Override
     public void setupValueChangeListener() {
         buttonGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
-            if (buttonGroup.getSelectedToggle() != null) {
+            if (newValue != null) {
                 colorSubject.setColor((Color) newValue.getUserData());
             }
         });

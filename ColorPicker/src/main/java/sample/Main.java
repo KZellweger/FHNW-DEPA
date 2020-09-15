@@ -13,7 +13,7 @@ public class Main extends Application {
     public void start(Stage primaryStage){
         Parent root = new MainView();
         primaryStage.setTitle("Color Picker");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setScene(new Scene(root, 300, 400));
         primaryStage.show();
     }
 

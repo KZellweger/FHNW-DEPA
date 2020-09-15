@@ -1,11 +1,13 @@
 package sample.ui;
 
+import javafx.beans.Observable;
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import sample.ColorSubject;
 import sample.Observer;
+
 
 /**
  * @author Kevin Zellweger
@@ -37,19 +39,20 @@ public class ColorSliders extends Observer implements UiComponent {
     public void setupValueChangeListener() {
         sliderRed.valueProperty().addListener((observable, oldValue, newValue) -> {
             if(!oldValue.equals(newValue)){
-                colorSubject.setColor(newValue.intValue(), sliderGreen.valueProperty().intValue(), sliderBlue.valueProperty().intValue());
+                colorSubject.setColor(newValue.intValue(), colorSubject.intFromFactor(colorSubject.getColor().getGreen()), colorSubject.intFromFactor(colorSubject.getColor().getBlue()));
             }
         });
         sliderGreen.valueProperty().addListener((observable, oldValue, newValue) -> {
             if(!oldValue.equals(newValue)){
-                colorSubject.setColor(sliderRed.valueProperty().intValue(), newValue.intValue(), sliderBlue.valueProperty().intValue());
+                colorSubject.setColor(colorSubject.intFromFactor(colorSubject.getColor().getRed()), newValue.intValue(), colorSubject.intFromFactor(colorSubject.getColor().getBlue()));
             }
         });
         sliderBlue.valueProperty().addListener((observable, oldValue, newValue) -> {
             if(!oldValue.equals(newValue)){
-                colorSubject.setColor(sliderRed.valueProperty().intValue(), sliderGreen.valueProperty().intValue(), newValue.intValue());
+                colorSubject.setColor(colorSubject.intFromFactor(colorSubject.getColor().getRed()), colorSubject.intFromFactor(colorSubject.getColor().getGreen()), newValue.intValue());
             }
         });
+
     }
 
     @Override
@@ -58,4 +61,5 @@ public class ColorSliders extends Observer implements UiComponent {
         sliderGreen.setValue(colorSubject.intFromFactor(colorSubject.getColor().getGreen()));
         sliderBlue.setValue(colorSubject.intFromFactor(colorSubject.getColor().getBlue()));
     }
+
 }
