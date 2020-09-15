@@ -4,6 +4,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.GridPane;
+import sample.ColorSubject;
 import sample.Observer;
 
 /**
@@ -16,7 +17,9 @@ public class ColorSliders extends Observer implements UiComponent {
     private final Slider sliderBlue = new Slider(MIN, MAX, DEFAULT);
     private final GridPane gridPane = new GridPane();
 
-    public ColorSliders() {
+    public ColorSliders(ColorSubject colorSubject) {
+        this.colorSubject = colorSubject;
+        this.colorSubject.attach(this);
         initializeControls();
         setupValueChangeListener();
     }
@@ -51,8 +54,8 @@ public class ColorSliders extends Observer implements UiComponent {
 
     @Override
     public void update() {
-        sliderRed.setValue(colorSubject.getColor().getRed());
-        sliderGreen.setValue(colorSubject.getColor().getGreen());
-        sliderBlue.setValue(colorSubject.getColor().getBlue());
+        sliderRed.setValue(colorSubject.intFromFactor(colorSubject.getColor().getRed()));
+        sliderGreen.setValue(colorSubject.intFromFactor(colorSubject.getColor().getGreen()));
+        sliderBlue.setValue(colorSubject.intFromFactor(colorSubject.getColor().getBlue()));
     }
 }

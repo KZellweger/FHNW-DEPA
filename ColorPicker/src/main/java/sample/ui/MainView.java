@@ -3,18 +3,20 @@ package sample.ui;
 import javafx.geometry.Insets;
 import javafx.scene.control.Menu;
 import javafx.scene.layout.*;
+import sample.ColorSubject;
 
 /**
  * @author Kevin Zellweger
  * @Date 15.09.20
  */
 public class MainView extends BorderPane {
+    private ColorSubject colorSubject = new ColorSubject();
     private final Menu menu = new Menu();
-    private final ColorField colorField = new ColorField();
-    private final ColorSliders colorSliders = new ColorSliders();
-    private final ColorChooser colorChooser = new ColorChooser();
-    private final TextFieldGroup textFieldGroup = new TextFieldGroup();
 
+    private final ColorField colorField = new ColorField(colorSubject);
+    private final ColorSliders colorSliders = new ColorSliders(colorSubject);
+    private final ColorChooser colorChooser = new ColorChooser(colorSubject);
+    private final TextFieldGroup textFieldGroup = new TextFieldGroup(colorSubject);
     private final GridPane gridPane = new GridPane();
     private final ColumnConstraints cGrow = new ColumnConstraints();
     private final ColumnConstraints cNoGrow = new ColumnConstraints();

@@ -2,6 +2,7 @@ package sample.ui;
 
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
+import sample.ColorSubject;
 import sample.Observer;
 
 /**
@@ -12,7 +13,10 @@ public class ColorField extends Observer implements UiComponent {
     private final Rectangle colorField = new Rectangle(120, 50);
     private final GridPane gridPane = new GridPane();
 
-    public ColorField() {
+    public ColorField(ColorSubject colorSubject)
+    {
+        this.colorSubject = colorSubject;
+        this.colorSubject.attach(this);
         initializeControls();
     }
 

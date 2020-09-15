@@ -22,7 +22,7 @@ public class ColorSubject {
     }
 
     public void setColor(int r, int g, int b) {
-        this.color = new Color(r, g, b,100);
+        this.color = new Color(rgbToFactor(r), rgbToFactor(g), rgbToFactor(b),1.0);
         notifyObservers();
     }
 
@@ -36,4 +36,11 @@ public class ColorSubject {
         }
     }
 
+    public Integer intFromFactor(double factor){
+        return (int) Math.round(255 * factor);
+    }
+
+    private double rgbToFactor(int integerValue){
+        return 1.0 / 255 * integerValue;
+    }
 }

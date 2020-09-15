@@ -1,12 +1,11 @@
 package sample.ui;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import sample.ColorSubject;
 import sample.Observer;
 
 /**
@@ -27,7 +26,9 @@ public class ColorChooser extends Observer implements UiComponent {
 
     private final GridPane gridPane = new GridPane();
 
-    public ColorChooser() {
+    public ColorChooser(ColorSubject colorSubject) {
+        this.colorSubject = colorSubject;
+        this.colorSubject.attach(this);
         initializeControls();
         setupValueChangeListener();
     }
@@ -42,9 +43,9 @@ public class ColorChooser extends Observer implements UiComponent {
         gridPane.setHgap(10);
         gridPane.setVgap(10);
 
-        buttonGroup.getToggles().addAll(red, green, blue, yellow, cyan, orange, white, black, white);
+        buttonGroup.getToggles().addAll(red, green, blue, yellow, cyan, orange, white, black);
         red.setUserData(Color.RED);
-        green.setUserData(Color.GREEN);
+        green.setUserData(Color.LIME);
         blue.setUserData(Color.BLUE);
         yellow.setUserData(Color.YELLOW);
         cyan.setUserData(Color.CYAN);
@@ -72,8 +73,11 @@ public class ColorChooser extends Observer implements UiComponent {
 
     @Override
     public void update() {
-        buttonGroup.getToggles().stream()
+        Toggle current = buttonGroup.getToggles().stream()
                 .filter(toggle -> colorSubject.getColor().equals(toggle.getUserData()))
-                .findFirst().ifPresent(buttonGroup::selectToggle);
+                .findFirst().orElse(null);
+
+        buttonGroup.selectToggle(current);
+
     }
 }
