@@ -2,10 +2,11 @@ package patterns.observer.once;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Observable {
 
-	private final List<Observer> observers = new ArrayList<Observer>();
+	private final List<Observer> observers = new CopyOnWriteArrayList<>(); //Creates internal a copy of the collection and therfore allows a change during iteration.
 
 	public void addObserver(Observer o) {
 		observers.add(o);

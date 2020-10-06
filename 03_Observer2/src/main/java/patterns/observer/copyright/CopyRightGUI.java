@@ -23,21 +23,22 @@ class CopyRightGUI extends JFrame {
 	}
 
 	CopyRightGUI(final String given, final String typeThat) {
-		final TextModel m = new TextModel();
-		CorrectionListener cl = new CorrectionListener(m);
-		TextListener tl = new TextListener();
-		m.addListener(cl);
-		m.addListener(tl);
+		final TextModel textModel = new TextModel();
+		CorrectionListener correctionListener = new CorrectionListener(textModel);
+		TextListener textListener = new TextListener();
+		// Ugly and not satisfying but would work
+        textModel.addListener(textListener);
+        textModel.addListener(correctionListener);
 		int pos = 0;
-		for(char ch : given.toCharArray()) m.insert(pos++, ch);
+		for(char ch : given.toCharArray()) textModel.insert(pos++, ch);
 		setLayout(new GridLayout(2, 2, 8, 0));
 		add(new JLabel("Next change (press button)"));
 		add(new JLabel("Current Text"));
-		add(newInsertButton(typeThat, m));
-		add(tl);
+		add(newInsertButton(typeThat, textModel));
+		add(textListener);
 	}
 
-	private JButton newInsertButton(final String typeThat, final TextModel wm) {
+	private JButton newInsertButton(final String typeThat, final TextModel textModel) {
 		final JButton key = new JButton(buttonText(typeThat.charAt(0), 0));
 		key.addActionListener(new ActionListener() {
 			int pos = 0;
@@ -45,7 +46,7 @@ class CopyRightGUI extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				char ch = typeThat.charAt(pos);
-				wm.insert(pos, ch);
+				textModel.insert(pos, ch);
 				pos++;
 				if (pos >= typeThat.length()) {
 					key.setEnabled(false);
