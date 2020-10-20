@@ -1,0 +1,45 @@
+plugins {
+	id 'java'
+}
+
+repositories {
+	jcenter()
+}
+
+sourceCompatibility = 11
+targetCompatibility = 11
+compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'
+
+task gradleWrapper(type: Wrapper)
+task zip(type: Zip) {
+	group = 'distribution'
+	dependsOn gradleWrapper
+	from projectDir
+
+	include 'build.gradle'
+	include 'gradle/**'
+	include 'gradlew'
+	include 'gradlew.bat'
+
+	include 'src/main/java/patterns/composite/*.java'
+	include 'src/main/java/patterns/composite/swing/*.java'
+}
+
+task zipSol(type: Zip) {
+	group = 'distribution'
+	archiveBaseName = archivesBaseName + 'Solutions'
+	dependsOn gradleWrapper
+	from projectDir
+
+	include 'build.gradle'
+	include 'gradle/**'
+	include 'gradlew'
+	include 'gradlew.bat'
+
+	include 'src/main/java/patterns/composite/sol1/*.java'
+	include 'src/main/java/patterns/composite/sol2/*.java'
+	include 'src/main/java/patterns/composite/sol3/*.java'
+	include 'src/main/java/patterns/composite/sol3a/*.java'
+	include 'src/main/java/patterns/composite/sol4/*.java'
+}

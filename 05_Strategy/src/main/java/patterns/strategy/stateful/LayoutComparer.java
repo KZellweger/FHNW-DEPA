@@ -20,9 +20,9 @@ public class LayoutComparer extends JFrame {
 
 	static int counter = 1;
 
-	JPanel createPanel(LayoutManager layout, String title) {
+	JPanel createPanel(LayoutManager layoutManager, String title) {
 		JPanel p = new JPanel();
-		p.setLayout(layout);
+		p.setLayout(layoutManager);
 		p.add(new JButton("Click " + counter++), "West");
 		p.add(new JButton("Click " + counter++), "Center");
 		p.add(new JButton("Click " + counter++), "East");
@@ -33,12 +33,12 @@ public class LayoutComparer extends JFrame {
 	LayoutComparer() {
 		setTitle("Layout Manager Test");
 		setLayout(new GridLayout(1, 2));
-		LayoutManager m;
-		m = new java.awt.FlowLayout();
-//		m = new java.awt.BorderLayout();
+		LayoutManager layoutManager;
+		layoutManager = new java.awt.FlowLayout();
+		layoutManager = new java.awt.BorderLayout();
 
-		add(createPanel(m, "Left"));
-//		pack();
-		add(createPanel(m, "Right"));
+		add(createPanel(layoutManager, "Left"));
+		//pack();
+		add(createPanel(layoutManager, "Right"));
 	}
 }
